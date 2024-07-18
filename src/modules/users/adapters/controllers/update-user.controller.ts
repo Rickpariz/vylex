@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Locator } from "../../shared/di.enums";
-import { UseCase } from "../../../../shared/usecase";
+import { IUseCase } from "../../../../shared/usecase";
 import { CreateUserUseCaseDto } from "../dtos/create-user.dto";
 import { User } from "../../entities/user.entity";
 import {
@@ -15,7 +15,7 @@ import { UpdateUserUseCaseDto } from "../dtos/update-user.dto";
 export default class UpdateUserController implements Controller {
   constructor(
     @inject(Locator.UpdateUserUseCase)
-    readonly usecase: UseCase<UpdateUserUseCaseDto, User>
+    readonly usecase: IUseCase<UpdateUserUseCaseDto, User>
   ) {}
 
   async handle(req: Request): Promise<HttpResponse> {

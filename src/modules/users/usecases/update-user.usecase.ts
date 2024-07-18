@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { UseCase } from "../../../shared/usecase";
+import { IUseCase } from "../../../shared/usecase";
 import { Locator } from "../shared/di.enums";
 import { User } from "../entities/user.entity";
 import {
@@ -20,7 +20,7 @@ import {
 
 @injectable()
 export default class UpdateUserUseCase
-  implements UseCase<UpdateUserUseCaseDto, User>
+  implements IUseCase<UpdateUserUseCaseDto, User>
 {
   constructor(
     @inject(Locator.UserRepository) readonly repository: IUserRepository

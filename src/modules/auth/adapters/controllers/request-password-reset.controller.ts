@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Locator } from "../../shared/di.enums";
-import { UseCase } from "../../../../shared/usecase";
+import { IUseCase } from "../../../../shared/usecase";
 import {
   Controller,
   HttpResponse,
@@ -14,7 +14,7 @@ import { RequestPasswordResetDto } from "../dtos/request-password-reset.dto";
 export default class RequestPasswordResetController implements Controller {
   constructor(
     @inject(Locator.RequestPasswordResetUseCase)
-    readonly usecase: UseCase<RequestPasswordResetDto, AccessToken>
+    readonly usecase: IUseCase<RequestPasswordResetDto, AccessToken>
   ) {}
 
   async handle(req: Request): Promise<HttpResponse> {

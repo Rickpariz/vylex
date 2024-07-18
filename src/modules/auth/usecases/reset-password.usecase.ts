@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { UseCase } from "../../../shared/usecase";
+import { IUseCase } from "../../../shared/usecase";
 import { Validate } from "../../../shared/decorators/validation.decorator";
 import { Locator } from "../shared/di.enums";
 import { IUserRepository } from "../../users/adapters/repositories/interfaces/user-repository.interface";
@@ -15,7 +15,7 @@ import { JWT_ROLES } from "../../../shared/enums/jwt-roles";
 
 @injectable()
 export default class ResetPasswordUsecase
-  implements UseCase<ResetPasswordDto, User>
+  implements IUseCase<ResetPasswordDto, User>
 {
   constructor(
     @inject(Locator.UserRepository) readonly repository: IUserRepository

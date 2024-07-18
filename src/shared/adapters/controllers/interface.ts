@@ -10,3 +10,7 @@ export type Handler = (req: Request) => Promise<HttpResponse>;
 export interface Controller {
   handle: Handler;
 }
+
+export interface IController<I, O> {
+  execute: (data: I) => O;
+}

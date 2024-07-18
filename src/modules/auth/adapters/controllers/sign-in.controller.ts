@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Locator } from "../../shared/di.enums";
-import { UseCase } from "../../../../shared/usecase";
+import { IUseCase } from "../../../../shared/usecase";
 import {
   Controller,
   HttpResponse,
@@ -14,7 +14,7 @@ import { AccessToken } from "../../entities/access-token.entity";
 export default class SignInController implements Controller {
   constructor(
     @inject(Locator.SignInUseCase)
-    readonly usecase: UseCase<SignInDto, AccessToken>
+    readonly usecase: IUseCase<SignInDto, AccessToken>
   ) {}
 
   async handle(req: Request): Promise<HttpResponse> {

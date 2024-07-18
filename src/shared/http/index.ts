@@ -33,3 +33,7 @@ export const Unauthorized = (): DomainError => {
 export const NotFound = (message: string): DomainError => {
   return new DomainError({ statusCode: 404, message });
 };
+
+export const BadRequest = (message: string): DomainError => {
+  return new DomainError({ statusCode: 400, message });
+};

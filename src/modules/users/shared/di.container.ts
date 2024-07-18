@@ -2,7 +2,7 @@ import { Container } from "inversify";
 import { Controller } from "../../../shared/adapters/controllers/interface";
 import { Locator } from "./di.enums";
 import CreateUserController from "../adapters/controllers/create-user.controller";
-import { UseCase } from "../../../shared/usecase";
+import { IUseCase } from "../../../shared/usecase";
 import { CreateUserUseCaseDto } from "../adapters/dtos/create-user.dto";
 import { User } from "../entities/user.entity";
 import CreateUserUseCase from "../usecases/create-user.usecase";
@@ -31,11 +31,11 @@ container
 
 // UseCases Injection
 container
-  .bind<UseCase<CreateUserUseCaseDto, User>>(Locator.CreateUserUseCase)
+  .bind<IUseCase<CreateUserUseCaseDto, User>>(Locator.CreateUserUseCase)
   .to(CreateUserUseCase);
 
 container
-  .bind<UseCase<UpdateUserUseCaseDto, User>>(Locator.UpdateUserUseCase)
+  .bind<IUseCase<UpdateUserUseCaseDto, User>>(Locator.UpdateUserUseCase)
   .to(UpdateUserUseCase);
 
 // Repositories Injection

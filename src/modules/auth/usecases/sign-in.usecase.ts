@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { UseCase } from "../../../shared/usecase";
+import { IUseCase } from "../../../shared/usecase";
 import { Validate } from "../../../shared/decorators/validation.decorator";
 import { SignInDto, signInDtoSchema } from "../adapters/dtos/sign-in.dto";
 import { Locator } from "../shared/di.enums";
@@ -10,7 +10,7 @@ import * as jwt from "jsonwebtoken";
 import { AccessToken } from "../entities/access-token.entity";
 
 @injectable()
-export default class SignInUseCase implements UseCase<SignInDto, AccessToken> {
+export default class SignInUseCase implements IUseCase<SignInDto, AccessToken> {
   constructor(
     @inject(Locator.UserRepository) readonly repository: IUserRepository
   ) {}

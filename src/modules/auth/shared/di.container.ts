@@ -4,7 +4,7 @@ import { PrismaClientLocator } from "../../../shared/di/di.enums";
 import { IUserRepository } from "../../users/adapters/repositories/interfaces/user-repository.interface";
 import { Locator } from "./di.enums";
 import UserRepository from "../../users/adapters/repositories/user.repository";
-import { UseCase } from "../../../shared/usecase";
+import { IUseCase } from "../../../shared/usecase";
 import { SignInDto } from "../adapters/dtos/sign-in.dto";
 import { AccessToken } from "../entities/access-token.entity";
 import SignInUseCase from "../usecases/sign-in.usecase";
@@ -35,17 +35,17 @@ container
 
 // UseCases Injection
 container
-  .bind<UseCase<SignInDto, AccessToken>>(Locator.SignInUseCase)
+  .bind<IUseCase<SignInDto, AccessToken>>(Locator.SignInUseCase)
   .to(SignInUseCase);
 
 container
-  .bind<UseCase<RequestPasswordResetDto, AccessToken>>(
+  .bind<IUseCase<RequestPasswordResetDto, AccessToken>>(
     Locator.RequestPasswordResetUseCase
   )
   .to(RequestPasswordResetUseCase);
 
 container
-  .bind<UseCase<ResetPasswordDto, User>>(Locator.ResetPasswordUseCase)
+  .bind<IUseCase<ResetPasswordDto, User>>(Locator.ResetPasswordUseCase)
   .to(ResetPasswordUsecase);
 
 // Repositories Injection

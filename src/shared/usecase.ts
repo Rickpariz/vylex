@@ -1,3 +1,3 @@
-export interface UseCase<Dto, Result> {
+export interface IUseCase<Dto, Result> {
   execute(data: Dto): Promise<Result>;
 }
