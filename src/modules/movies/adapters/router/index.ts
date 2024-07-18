@@ -6,9 +6,13 @@ import main from "../../../../shared/adapters/controllers";
 import { authorize } from "../../../../shared/middlewares/auth";
 
 const listMovies = container.get<Controller>(Locator.ListMoviesController);
+const saveWatchedMovie = container.get<Controller>(
+  Locator.SaveWatchedMovieController
+);
 
 const moviesRouter = Router();
 
 moviesRouter.get("/", authorize, main(listMovies));
+moviesRouter.post("/watch/:movieId", authorize, main(saveWatchedMovie));
 
 export { moviesRouter };

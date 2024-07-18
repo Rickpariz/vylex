@@ -7,7 +7,7 @@ import {
   listMoviesDtoSchema,
 } from "../adapters/dtos/list-movies.dto";
 import {
-  GetMovieExternalParams,
+  GetMoviesExternalParams,
   GetMoviesApiResponse,
   MovieExternal,
 } from "../adapters/externals/types/get-movies-external.type";
@@ -15,6 +15,7 @@ import { IExternal } from "../../../shared/external";
 import { ISubscriptionRepository } from "../../subscriptions/adapters/repositories/interfaces/subscription-repository.interface";
 import _ from "lodash";
 import { Validate } from "../../../shared/decorators/validation.decorator";
+import { GetAvailableGenresDto } from "../adapters/dtos/get-available-genres.dto";
 
 @injectable()
 export default class ListMoviesUseCase
@@ -23,11 +24,16 @@ export default class ListMoviesUseCase
   constructor(
     @inject(Locator.GetMoviesExternal)
     readonly getMoviesExternal: IExternal<
-      GetMovieExternalParams,
+      GetMoviesExternalParams,
       GetMoviesApiResponse
     >,
     @inject(Locator.SubscriptionRepository)
-    readonly subscriptionRepository: ISubscriptionRepository
+    readonly subscriptionRepository: ISubscriptionRepository,
+    @inject(Locator.GetAvailableGenresUseCase)
+    readonly getAvailableGenresUseCase: IUseCase<
+      GetAvailableGenresDto,
+      number[]
+    >
   ) {}
 
   @Validate(listMoviesDtoSchema)
@@ -54,19 +60,11 @@ export default class ListMoviesUseCase
   }
 
   private async getGenres(data: ListMoviesDto): Promise<number[]> {
-    const { genres: requestGenres } = data;
-    const subscriptions = await this.subscriptionRepository.findMany({
-      userId: data.user.id,
-    });
+    const { genres: requestGenres, user } = data;
 
-    const availableGenres = _.flatten(
-      subscriptions.reduce((acc: number[], subscription) => {
-        acc.push(
-          ...subscription.package.genres.map((genre) => genre.externalId)
-        );
-        return acc;
-      }, [])
-    );
+    const availableGenres = await this.getAvailableGenresUseCase.execute({
+      userId: user.id,
+    });
 
     if (!requestGenres?.length) return availableGenres;
 

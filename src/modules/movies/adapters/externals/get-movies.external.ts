@@ -4,15 +4,15 @@ import { TheMovieApi } from "../../../../shared/api/the-movie.api";
 import { BadRequest } from "../../../../shared/http";
 import { axiosError } from "../../../../shared/errors/axios-error";
 import {
-  GetMovieExternalParams,
   GetMoviesApiResponse,
+  GetMoviesExternalParams,
 } from "./types/get-movies-external.type";
 
 @injectable()
 export default class GetMoviesExternal
-  implements IExternal<GetMovieExternalParams, GetMoviesApiResponse>
+  implements IExternal<GetMoviesExternalParams, GetMoviesApiResponse>
 {
-  async call(params: GetMovieExternalParams): Promise<GetMoviesApiResponse> {
+  async call(params: GetMoviesExternalParams): Promise<GetMoviesApiResponse> {
     try {
       const { page = 1, genres } = params;
 

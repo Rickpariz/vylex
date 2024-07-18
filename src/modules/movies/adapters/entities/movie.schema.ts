@@ -1,11 +1,14 @@
 import { Schema } from "mongoose";
-import { Movie } from "./movie.entity";
+import { WatchedMovie } from "./movie.entity";
 
-export const MovieSchema = new Schema<Movie>(
+export const WatchedMovieSchema = new Schema<WatchedMovie>(
   {
-    title: { type: String, required: true },
-    externalId: { type: Number, required: true },
-    genres: [{ type: Number }],
+    movie: {
+      id: { type: Number, required: true },
+      title: { type: String, required: true },
+      genres: [{ type: Number }],
+    },
+    userId: { type: Number, required: true },
   },
   { timestamps: true }
 );

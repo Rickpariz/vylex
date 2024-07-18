@@ -5,7 +5,7 @@ export type GetMoviesApiResponse = {
   total_results: number;
 };
 
-export type GetMovieExternalParams = {
+export type GetMoviesExternalParams = {
   page: number;
   genres: number[];
 };

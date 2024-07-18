@@ -26,8 +26,11 @@ export const Conflict = (message: string): DomainError => {
   return new DomainError({ statusCode: 409, message });
 };
 
-export const Unauthorized = (): DomainError => {
-  return new DomainError({ statusCode: 401, message: "UNAUTHORIZED" });
+export const Unauthorized = (message?: string): DomainError => {
+  return new DomainError({
+    statusCode: 401,
+    message: message || "UNAUTHORIZED",
+  });
 };
 
 export const NotFound = (message: string): DomainError => {
