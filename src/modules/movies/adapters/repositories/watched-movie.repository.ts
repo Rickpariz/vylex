@@ -1,5 +1,8 @@
 import { injectable } from "inversify";
-import { IWatchedMovieRepository } from "./interfaces/watched-movie-repository.interface";
+import {
+  IWatchedMovieRepository,
+  UserMovie,
+} from "./interfaces/watched-movie-repository.interface";
 import { WatchedMovieSchema } from "../entities/movie.schema";
 import { WatchedMovie } from "../entities/movie.entity";
 import { Model, model } from "mongoose";
@@ -20,5 +23,26 @@ export class WatchedMovieRepository implements IWatchedMovieRepository {
     await this.connect();
     const watchedMovie = await this.collection.create(data);
     return watchedMovie;
+  }
+
+  async exists(params: UserMovie): Promise<boolean> {
+    await this.connect();
+    const { userId, movieId } = params;
+
+    const watchedMovie = await this.collection.countDocuments({
+      userId,
+      "movie.id": movieId,
+    });
+    return Boolean(watchedMovie > 0);
+  }
+
+  async remove(params: UserMovie): Promise<void> {
+    await this.connect();
+    const { userId, movieId } = params;
+
+    await this.collection.deleteOne({
+      userId,
+      "movie.id": movieId,
+    });
   }
 }

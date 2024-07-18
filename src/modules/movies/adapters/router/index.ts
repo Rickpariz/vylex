@@ -10,9 +10,14 @@ const saveWatchedMovie = container.get<Controller>(
   Locator.SaveWatchedMovieController
 );
 
+const removeWatchMovie = container.get<Controller>(
+  Locator.RemoveWatchedMovieController
+);
+
 const moviesRouter = Router();
 
 moviesRouter.get("/", authorize, main(listMovies));
 moviesRouter.post("/watch/:movieId", authorize, main(saveWatchedMovie));
+moviesRouter.delete("/watch/:movieId", authorize, main(removeWatchMovie));
 
 export { moviesRouter };

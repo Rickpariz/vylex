@@ -28,6 +28,9 @@ import SaveWatchedMovieUseCase from "../usecases/save-watched-movie.usecase";
 import { WatchedMovieDto } from "../adapters/dtos/save-watched-movie.dto";
 import { WatchedMovie } from "../adapters/entities/movie.entity";
 import SaveWatchedMovieController from "../adapters/controllers/save-watched-movie.controller";
+import RemoveWatchedMovieController from "../adapters/controllers/remove-watched-movie.controller";
+import RemoveWatchedMovieUseCase from "../usecases/remove-watched-movie.usecase";
+import { RemoveWatchedMovieDto } from "../adapters/dtos/remove-watched-movie.dto";
 
 const container = new Container();
 
@@ -76,5 +79,15 @@ container
 container
   .bind<Controller>(Locator.SaveWatchedMovieController)
   .to(SaveWatchedMovieController);
+
+container
+  .bind<Controller>(Locator.RemoveWatchedMovieController)
+  .to(RemoveWatchedMovieController);
+
+container
+  .bind<IUseCase<RemoveWatchedMovieDto, void>>(
+    Locator.RemoveWatchedMovieUseCase
+  )
+  .to(RemoveWatchedMovieUseCase);
 
 export { container };

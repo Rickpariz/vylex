@@ -8,6 +8,8 @@ const Locator = {
   GetAvailableGenresUseCase: Symbol.for("GetAvailableGenresUseCase"),
   SaveWatchedMovieUseCase: Symbol.for("SaveWatchedMovieUseCase"),
   SaveWatchedMovieController: Symbol.for("SaveWatchedMovieController"),
+  RemoveWatchedMovieUseCase: Symbol.for("RemoveWatchedMovieUseCase"),
+  RemoveWatchedMovieController: Symbol.for("RemoveWatchedMovieController"),
 };
 
 export { Locator };
