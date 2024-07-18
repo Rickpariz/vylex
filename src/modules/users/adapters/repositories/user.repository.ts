@@ -69,4 +69,14 @@ export default class UserRepository implements IUserRepository {
       },
     });
   }
+
+  async findAll(): Promise<User[]> {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    });
+  }
 }

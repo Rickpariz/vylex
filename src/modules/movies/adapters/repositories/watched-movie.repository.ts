@@ -45,4 +45,14 @@ export class WatchedMovieRepository implements IWatchedMovieRepository {
       "movie.id": movieId,
     });
   }
+
+  async findByUserId(userId: number): Promise<WatchedMovie[]> {
+    await this.connect();
+
+    return await this.collection
+      .find({
+        userId,
+      })
+      .lean();
+  }
 }

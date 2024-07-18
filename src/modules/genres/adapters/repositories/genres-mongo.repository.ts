@@ -1,5 +1,8 @@
 import { injectable } from "inversify";
-import { FindParams } from "./interfaces/genres-repository.interface";
+import {
+  FindOneParams,
+  FindParams,
+} from "./interfaces/genres-repository.interface";
 import { Model, model } from "mongoose";
 import { IGenresRepository } from "./interfaces/genres-repository.interface";
 import { GenreSchema } from "../../entities/genre.schema";
@@ -65,5 +68,10 @@ export class GenresMongoRepository implements IGenresRepository {
   async createMany(genres: Genre[]): Promise<void> {
     await this.connect();
     await this.collection.insertMany(genres);
+  }
+
+  async findOne({ externalId }: FindOneParams): Promise<Genre | null> {
+    await this.connect();
+    return this.collection.findOne({ externalId }).lean();
   }
 }

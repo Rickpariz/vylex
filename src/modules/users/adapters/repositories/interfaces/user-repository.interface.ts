@@ -8,4 +8,5 @@ export interface IUserRepository {
   findByEmail: (email: string) => Promise<BaseUser | null>;
   isDuplicateEmail: (params: { email: string; id: number }) => Promise<Boolean>;
   update: (dto: Partial<BaseUser>) => Promise<User>;
+  findAll: () => Promise<User[]>;
 }
