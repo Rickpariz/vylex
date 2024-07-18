@@ -12,6 +12,7 @@ import { IController } from "./shared/adapters/controllers/interface";
 import { genresRoute } from "./modules/genres/adapters/router";
 import { packagesRoute } from "./modules/packages/adapters/router";
 import { subscriptionsRoute } from "./modules/subscriptions/adapters/router";
+import { moviesRouter } from "./modules/movies/adapters/router";
 
 const extractGenres = container.get<IController<void, void>>(
   Locator.ExtractGenresController
@@ -27,6 +28,7 @@ async function createRouter() {
   app.use("/genres", genresRoute);
   app.use("/packages", packagesRoute);
   app.use("/subscriptions", subscriptionsRoute);
+  app.use("/movies", moviesRouter);
 }
 
 createRouter();

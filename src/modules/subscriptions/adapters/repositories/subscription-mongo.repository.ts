@@ -1,7 +1,13 @@
 import { injectable } from "inversify";
 import { Model, model } from "mongoose";
-import { ISubscriptionRepository } from "./interfaces/subscription-repository.interface";
-import { Subscription } from "../entities/subscription.entity";
+import {
+  FindParams,
+  ISubscriptionRepository,
+} from "./interfaces/subscription-repository.interface";
+import {
+  Subscription,
+  SubscriptionWithPackageAndGenres,
+} from "../entities/subscription.entity";
 import { connectDatabase } from "../../../../shared/database/mongodb";
 import { CreateSubscriptionDto } from "../dtos/create-subscription.dto";
 import { SubscriptionSchema } from "../entities/subscription.schema";
@@ -21,5 +27,23 @@ export class SubscriptionMongoRepository implements ISubscriptionRepository {
     await this.connect();
     const subscription = await this.collection.create(data);
     return subscription;
+  }
+
+  async findMany(
+    data: FindParams
+  ): Promise<SubscriptionWithPackageAndGenres[]> {
+    await this.connect();
+    const subscriptions = (await this.collection
+      .find({
+        users: data.userId,
+      })
+      .populate({
+        path: "package",
+        select: "genres",
+        populate: { path: "genres", select: "name externalId" },
+      })
+      .lean()) as SubscriptionWithPackageAndGenres[];
+
+    return subscriptions;
   }
 }

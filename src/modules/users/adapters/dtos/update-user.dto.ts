@@ -1,14 +1,11 @@
 import { z } from "zod";
+import { userSchema } from "../../../../shared/adapters/dtos/user-schema";
 
 export const updateUserDtoSchema = z.object({
   id: z.number().int(),
   name: z.string().optional(),
   email: z.string().email().optional(),
-  tokenUser: z.object({
-    id: z.number().int(),
-    email: z.string().email(),
-    name: z.string(),
-  }),
+  tokenUser: userSchema,
 });
 
 export type UpdateUserUseCaseDto = z.infer<typeof updateUserDtoSchema>;

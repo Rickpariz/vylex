@@ -7,3 +7,14 @@ export type Subscription = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type SubscriptionWithPackageAndGenres = {
+  _id: string;
+  users: number[];
+  package: {
+    genres: {
+      name: string;
+      externalId: number;
+    }[];
+  };
+};

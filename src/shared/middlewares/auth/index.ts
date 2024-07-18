@@ -4,8 +4,6 @@ import * as jwt from "jsonwebtoken";
 import { DomainError } from "../../errors/domain.error";
 
 async function authorize(req: Request, res: Response, next: NextFunction) {
-  const { headers } = req;
-
   try {
     const jwtToken = extractTokenFromHeaders(req);
 
