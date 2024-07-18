@@ -20,12 +20,12 @@ export default class ListMoviesController implements Controller {
   ) {}
 
   async handle(req: Request): Promise<HttpResponse> {
-    const { pageNumber, pageSize } = req.query as unknown as ListMoviesDto;
+    const { pageNumber, genres } = req.query as unknown as ListMoviesDto;
     const tokenUser = req.user;
 
     const result = await this.usecase.execute({
-      pageNumber,
-      pageSize,
+      pageNumber: pageNumber ? Number(pageNumber) : 1,
+      genres: genres ? genres.map((genreId) => Number(genreId)) : [],
       user: tokenUser!,
     });
 

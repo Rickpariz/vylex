@@ -2,7 +2,10 @@ import { inject, injectable } from "inversify";
 import { IUseCase } from "../../../shared/usecase";
 import { Pagination } from "../../../shared/adapters/repositories/interface";
 import { Locator } from "../shared/di.enums";
-import { ListMoviesDto } from "../adapters/dtos/list-movies.dto";
+import {
+  ListMoviesDto,
+  listMoviesDtoSchema,
+} from "../adapters/dtos/list-movies.dto";
 import {
   GetMovieExternalParams,
   GetMoviesApiResponse,
@@ -11,6 +14,7 @@ import {
 import { IExternal } from "../../../shared/external";
 import { ISubscriptionRepository } from "../../subscriptions/adapters/repositories/interfaces/subscription-repository.interface";
 import _ from "lodash";
+import { Validate } from "../../../shared/decorators/validation.decorator";
 
 @injectable()
 export default class ListMoviesUseCase
@@ -26,6 +30,7 @@ export default class ListMoviesUseCase
     readonly subscriptionRepository: ISubscriptionRepository
   ) {}
 
+  @Validate(listMoviesDtoSchema)
   async execute(data: ListMoviesDto): Promise<Pagination<MovieExternal>> {
     const { pageNumber } = data;
 
@@ -63,10 +68,14 @@ export default class ListMoviesUseCase
       }, [])
     );
 
-    if (!requestGenres?.length) {
-      return availableGenres;
-    }
+    if (!requestGenres?.length) return availableGenres;
 
-    return requestGenres?.filter((genre) => availableGenres.includes(genre));
+    const filteredGenres = requestGenres?.filter((genre) =>
+      availableGenres.includes(genre)
+    );
+
+    if (!filteredGenres?.length) return availableGenres;
+
+    return filteredGenres;
   }
 }
