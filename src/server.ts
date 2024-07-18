@@ -10,6 +10,8 @@ import { container } from "./modules/genres/shared/di.container";
 import { Locator } from "./modules/genres/shared/di.enums";
 import { IController } from "./shared/adapters/controllers/interface";
 import { genresRoute } from "./modules/genres/adapters/router";
+import { packagesRoute } from "./modules/packages/adapters/router";
+import { subscriptionsRoute } from "./modules/subscriptions/adapters/router";
 
 const extractGenres = container.get<IController<void, void>>(
   Locator.ExtractGenresController
@@ -23,6 +25,8 @@ async function createRouter() {
   app.use("/", authRouter);
   app.use("/users", usersRouter);
   app.use("/genres", genresRoute);
+  app.use("/packages", packagesRoute);
+  app.use("/subscriptions", subscriptionsRoute);
 }
 
 createRouter();

@@ -6,8 +6,8 @@ export const connectDatabase = async () => {
     await connect(String(process.env.MONGODB_URL), {
       dbName: "vylex",
     });
-    logger.info("Creating a new connection.");
+    logger.debug("Creating a new connection.");
     return;
   }
-  logger.info("Using an existing connection");
+  logger.debug("Using an existing connection");
 };
