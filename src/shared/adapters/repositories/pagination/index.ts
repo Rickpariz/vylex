@@ -14,7 +14,7 @@ export const mapPagination = (params: MapPaginationParams) => {
     pageNumber: Number(pageNumber),
     pageSize: Number(pageSize),
     totalPages: Number(totalPages),
-    lastPage: pageNumber === totalPages,
-    firstPage: pageNumber === 1,
+    lastPage: Number(pageNumber) === totalPages,
+    firstPage: Number(pageNumber) === 1,
   };
 };

@@ -26,6 +26,8 @@ export default class ReportUsecase implements IUseCase<void, Report[]> {
         user.id
       );
 
+      if (!watchedMovies.length) return null;
+
       const lastFilmeWatched = watchedMovies[watchedMovies.length - 1];
       const mostWatchedTheme = await this.getMostWatchedTheme(watchedMovies);
 
@@ -40,7 +42,9 @@ export default class ReportUsecase implements IUseCase<void, Report[]> {
       } as Report;
     });
 
-    return await Promise.all(promises);
+    const reports = await Promise.all(promises);
+
+    return reports.filter((r) => r !== null) as Report[];
   }
 
   private async getMostWatchedTheme(
@@ -57,10 +61,6 @@ export default class ReportUsecase implements IUseCase<void, Report[]> {
     const themeId = Number(maxFrequencyKey);
 
     const genre = await this.genresRepository.findOne({ externalId: themeId });
-
-    console.log(genresFrequences);
-    console.log(genresFrequencesKeys);
-    console.log(maxFrequencyKey);
 
     return {
       themeId,
