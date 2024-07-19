@@ -33,10 +33,11 @@ async function createRouter() {
 
 createRouter();
 
-app.listen(process.env.API_PORT, () => {
+app.listen(process.env.API_PORT, async () => {
   logger.info(`Server Running on port ${process.env.API_PORT}`);
+  await extractGenres.execute();
 });
 
-cron.schedule("*/1 * * * *", async () => {
+cron.schedule(String(process.env.CRON_JOB), async () => {
   await extractGenres.execute();
 });
