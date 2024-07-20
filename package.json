@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "start": "yarn prisma & tsx src/server.ts",
+    "prisma": "npx prisma migrate dev --name init",
     "build": "tsup src"
   },
   "devDependencies": {
