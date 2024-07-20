@@ -41,7 +41,7 @@ yarn
 Utilize o comando abaixo instalar executar o servidor:
 
 ```sh
-yarn dev
+yarn start
 ```
 
 ## Estrutura de dados
