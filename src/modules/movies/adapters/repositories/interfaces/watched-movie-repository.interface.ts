@@ -1,3 +1,4 @@
+import { Report } from "../../../../users/entities/report.entity";
 import { Movie, WatchedMovie } from "../../entities/movie.entity";
 
 export type UserMovie = {
@@ -9,4 +10,5 @@ export interface IWatchedMovieRepository {
   exists(params: UserMovie): Promise<boolean>;
   remove(params: UserMovie): Promise<void>;
   findByUserId(userId: number): Promise<WatchedMovie[]>;
+  report(): Promise<Report[]>;
 }

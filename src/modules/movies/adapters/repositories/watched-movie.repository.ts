@@ -7,12 +7,15 @@ import { WatchedMovieSchema } from "../entities/movie.schema";
 import { WatchedMovie } from "../entities/movie.entity";
 import { Model, model } from "mongoose";
 import { connectDatabase } from "../../../../shared/database/mongodb";
+import { Report } from "../../../users/entities/report.entity";
+import { GetUsersMoviesReportAggregation } from "./aggregations/get-users-movies-report";
 
 @injectable()
 export class WatchedMovieRepository implements IWatchedMovieRepository {
   constructor() {
     this.collection = model<WatchedMovie>("watched-movies", WatchedMovieSchema);
   }
+
   private collection: Model<WatchedMovie>;
 
   private async connect() {
@@ -54,5 +57,12 @@ export class WatchedMovieRepository implements IWatchedMovieRepository {
         userId,
       })
       .lean();
+  }
+
+  async report(): Promise<Report[]> {
+    const report = await this.collection
+      .aggregate(GetUsersMoviesReportAggregation as any)
+      .exec();
+    return report || [];
   }
 }
